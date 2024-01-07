@@ -1,0 +1,21 @@
+#cloud-config
+  package_update: true
+  package_upgarde: true
+  packages:
+    - git
+    - ruby-full
+    - ruby-bundler
+    - build-essential
+    - mongodb
+  users:
+    - name: st0rik
+      groups: sudo
+      shell: /bin/bash
+      sudo: ['ALL=(ALL) NOPASSWD:ALL']
+      ssh-authorized_keys:
+      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKLiD468O7t0oPO7Lp/p4jWbpwAQnOpgbfK7Sy7QUCa6 home@debian"
+  runcmd:
+    - cd /home/st0rik
+    - git clone -b monolith https://github.com/express42/reddit.git
+    - cd reddit && bundle install
+    - puma -d
