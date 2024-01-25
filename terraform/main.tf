@@ -1,11 +1,11 @@
-#terraform {
-#  required_providers {
-#    yandex = {
-#      source = "yandex-cloud/yandex"
-#    }
-#  }
-#  required_version = ">= 0.13"
-#}
+terraform {
+  required_providers {
+    yandex = {
+      source = "yandex-cloud/yandex"
+    }
+  }
+  required_version = ">= 0.13"
+}
 
 provider "yandex" {
   service_account_key_file = var.service_account_key_file
@@ -58,7 +58,7 @@ resource "yandex_compute_instance" "app" {
   }
 
   provisioner "remote-exec" {
-  inline = [
+    inline = [
       "chmod +x /tmp/deploy.sh",
       "/tmp/deploy.sh",
     ]
