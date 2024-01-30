@@ -5,3 +5,5 @@ packer/variables.json
 *.tfvars
 .terraform/
 .terraform/files/appuser.pub
+terraform/stage/terraform.tfvars
+terraform/prod/terraform.tfvars
