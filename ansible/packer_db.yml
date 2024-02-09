@@ -1,0 +1,32 @@
+---
+- name: Install MondoDB
+  hosts: all
+  become: true
+  tasks:
+    - name: Add apt key
+      apt_key:
+        id: 0C49F3730359A14518585931BC711F9BA15703C6
+        keyserver: keyserver.ubuntu.com
+
+    - name: Fetch the mongodb repo
+      apt_repository:
+        repo: deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen
+        state: present
+
+    - name: Install MongoDB
+      apt:
+        pkg: mongodb
+        state: latest
+      notify: 
+       - start mongodb
+
+    - name: Enabled service
+      systemd:
+        name: mongod
+        enabled: yes
+  handlers:
+    - name: start mongodb
+      service:
+         name: mongod 
+         state: started
+
